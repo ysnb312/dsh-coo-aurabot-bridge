@@ -609,7 +609,7 @@ window.__ModuleLoader__.load({
               desc: '语音喂给哪个 QQ 会话；空 = 自动用主人私聊 private:<主人QQ>'
             }, h(TextField, {
               value: L('voiceInput', 'voiceTarget'),
-              placeholder: 'private:3358492095',
+              placeholder: 'private:10001',
               width: 240,
               onCommit: (v) => P(['voiceInput', 'voiceTarget'], String(v || '').trim())
             })),
@@ -658,7 +658,7 @@ window.__ModuleLoader__.load({
               desc: '空 = private:<主人QQ>，由 aurabot 自己解析'
             }, h(TextField, {
               value: L('aToQ', 'target'),
-              placeholder: 'private:3358492095',
+              placeholder: 'private:10001',
               width: 240,
               onCommit: (v) => P(['aToQ', 'target'], String(v || '').trim())
             })),

@@ -25,7 +25,7 @@ import { mkdirSync } from 'node:fs'
 mkdirSync(process.env.AURABOT_DATA_DIR, { recursive: true })
 writeFileSync(join(process.env.AURABOT_DATA_DIR, 'sessions.json'), JSON.stringify({
   chats: {
-    'private:3358492095': { sessionId: 'session-qq-owner' },
+    'private:10001': { sessionId: 'session-qq-owner' },
     'system:diary': { sessionId: 'session-qq-diary' }
   }
 }), 'utf8')
@@ -233,7 +233,7 @@ check('方向B：非主人被拒', () => JSON.parse(res.body).reason === 'not-ow
 
 // 系统消息被拒
 res = fakeRes()
-await simQQ(fakeReq({ text: '[语音·cosyvoice] 嗯嗯', chatId: 'private:3358492095', owner: true }), res)
+await simQQ(fakeReq({ text: '[语音·cosyvoice] 嗯嗯', chatId: 'private:10001', owner: true }), res)
 check('方向B：系统消息被拒', () => JSON.parse(res.body).reason === 'system-text' || res.body)
 
 /* ---------- /status ---------- */
