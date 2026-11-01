@@ -10,11 +10,20 @@
 > 不修改 `dsh-coopanion-pet` 与 `dsh-aurabot-qq` 的任何源码。两侧都只用它们已经存在的公开面：
 > coopanion 的 `session/event` 与 HTTP 路由；aurabot 的 `ctx.get('aurabot')` 服务与 `activity` 事件。
 
+```bash
+# 装（把 desktop 换成你自己的 profile 名），装完重启 DSH
+dsh plugin --profile desktop add github:ysnb312/dsh-coo-aurabot-bridge
+```
+
+不想用命令行？下 [Releases](https://github.com/ysnb312/dsh-coo-aurabot-bridge/releases)
+里的 `.tgz` 也行。两种方式的完整步骤和坑都在 [§1.1](#11-三种装法挑一种)。
+
 ---
 
 ## 1. 安装
 
-插件目录本身就是一个可直接 `file:` 引用的包。**两种装法，选一种**。
+插件目录本身就是一个可直接 `file:` 引用的包。**三种装法，挑最顺手的**：
+一条命令 / 下载 .tgz / 手动放进 `plugins/`。
 
 ### 1.0 先想清楚要哪一档
 
@@ -30,13 +39,58 @@
 
 前提：插件是桥，得先有 **dsh-coopanion-pet**（桌宠）和 **dsh-aurabot-qq**（QQ）。
 
-### 1.1 装到 profile 里
+### 1.1 三种装法，挑一种
 
 DSH 的 profile 目录一般是 `~/.dsh/profiles/<profile名>/`（Windows 上是
 `C:\Users\<你>\.dsh\profiles\<profile名>\`，profile 名默认 `desktop`）。
+下面的 `<profile>` 都换成你自己的 profile 名。
 
-把整个插件目录放到 `<profile>/plugins/dsh-coo-aurabot-bridge`，
-然后在 `<profile>/package.json` 里登记两处：
+#### 方式一：一条命令（推荐）
+
+插件本身零依赖，DSH 的 `plugin add` 会自己把它装进 profile 并登记进 `bundles`：
+
+```bash
+dsh plugin --profile <profile> add github:ysnb312/dsh-coo-aurabot-bridge
+```
+
+Windows 上 `dsh` 不在 PATH 里时，用完整路径：
+
+```powershell
+& "$env:LOCALAPPDATA\Programs\DeepSeek Harness\resources\runtime\cli\bin\dsh.cmd" `
+  plugin --profile desktop add github:ysnb312/dsh-coo-aurabot-bridge
+```
+
+装完重启 DSH，侧栏就会多出「肥鱼语音」。
+
+> 要指定版本就加 `#v0.3.0`：`add github:ysnb312/dsh-coo-aurabot-bridge#v0.3.0`。
+> 升级也用同一条 `add`——但 pnpm 对**已锁定的 `github:` 依赖**会认为「已是最新」而
+> 什么都不下载；要真正换版本，先 `dsh plugin --profile <profile> remove
+> dsh-coo-aurabot-bridge`，再 `add` 一次。
+
+#### 方式二：下载发布包（.tgz，约 80 KB，不用 git）
+
+从 [Releases](https://github.com/ysnb312/dsh-coo-aurabot-bridge/releases) 下
+`dsh-coo-aurabot-bridge-0.3.0.tgz`，丢进 `<profile>/vendor/`，然后在
+`<profile>/package.json` 里登记两处：
+
+```json
+"dependencies": {
+  "dsh-coo-aurabot-bridge": "file:vendor/dsh-coo-aurabot-bridge-0.3.0.tgz"
+},
+"dsh": { "profile": { "bundles": [ "...", "dsh-coo-aurabot-bridge" ] } }
+```
+
+```powershell
+cd <profile>
+pnpm install
+```
+
+#### 方式三：手动放进 plugins（要改代码、或在改这个插件本身时用）
+
+GitHub 仓库页 → `Code` → `Download ZIP`（或者
+`git clone https://github.com/ysnb312/dsh-coo-aurabot-bridge.git`），解压后把文件夹
+改名成 `dsh-coo-aurabot-bridge`，整个挪到 `<profile>/plugins/` 下，再像方式二那样在
+`package.json` 里登记：
 
 ```json
 "dependencies": {
@@ -64,6 +118,9 @@ pnpm add "file:<profile>/plugins/dsh-coo-aurabot-bridge"
 > New-Item -ItemType Junction -Path "<profile>\node_modules\dsh-coo-aurabot-bridge" `
 >   -Target "<profile>\plugins\dsh-coo-aurabot-bridge"
 > ```
+
+> **国内网络**：`github:` 源码是经 `codeload.github.com` 下的，跟 `github.com` 不一定
+> 同一条路。连不上就给 git 配代理，或者干脆走方式二的 .tgz（体积小得多）。
 
 ### 1.3 装完检查
 
