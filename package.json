@@ -20,7 +20,8 @@
     "voice/setup.ps1",
     "voice/README.md",
     "cordis.patch.yml",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "dsh": {
     "bundle": {

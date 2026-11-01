@@ -457,3 +457,9 @@ plugins/dsh-coo-aurabot-bridge/
 **端口每次都变**：`endpoint.json` 的 `port` 是 DSH webServer 启动时分配的
 （实测 55723 / 49673 / 60457 都出现过）。任何写死端口的命令都会静默失败，
 一律从 `endpoint.json` 读。
+
+---
+
+## 8. 许可
+
+MIT，见 [LICENSE](LICENSE)。用、改、再分发都行，保留版权声明即可，作者不担保。
