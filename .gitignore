@@ -1,0 +1,7 @@
+node_modules/
+*.log
+
+# 加强包安装出来的东西（几百 MB，别进仓库）
+voice/models/
+voice/.venv-voice/
+voice/scripts/*.generated.*

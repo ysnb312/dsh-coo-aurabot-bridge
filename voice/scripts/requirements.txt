@@ -1,0 +1,7 @@
+sherpa-onnx==2.0.1
+numpy>=2.0
+sounddevice>=0.5
+faster-whisper>=1.1
+# 唤醒词编译用：中文 → 带调拼音（gen_keywords.py）。
+# 纯 Python 包，无二进制依赖，装起来很快。
+pypinyin>=0.51

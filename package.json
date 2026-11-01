@@ -1,0 +1,42 @@
+{
+  "name": "dsh-coo-aurabot-bridge",
+  "version": "0.3.0",
+  "description": "把 DSH 桌宠（dsh-coopanion-pet）与 QQ（dsh-aurabot-qq）双向桥接，并开一个本地语音输入口；带侧栏面板，可直接在这里改唤醒词、各条链路的开关、桌宠念白与耳朵（KWS 托管）。",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./client/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "client",
+    "test",
+    "voice/scripts",
+    "voice/setup.ps1",
+    "voice/README.md",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "slots"
+      ],
+      "external": [
+        "react"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

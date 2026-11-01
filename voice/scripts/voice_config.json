@@ -1,0 +1,62 @@
+{
+  "_说明": "语音助手配置。路径都相对本文件所在目录；也可以用绝对路径。",
+
+  "audio": {
+    "sample_rate": 16000,
+    "block": 512,
+    "channels": 1,
+    "device": null,
+    "_device说明": "null = 系统默认输入设备；填数字 = sounddevice 的设备索引（python -c \"import sounddevice;print(sounddevice.query_devices())\" 可看）"
+  },
+
+  "kws": {
+    "enabled": true,
+    "model_dir": "../models/sherpa-onnx-kws-zipformer-wenetspeech-3.3M-2024-01-01",
+    "keywords_file": "../models/keywords-daifeiyu.txt",
+    "num_threads": 2,
+    "keywords_score": 1.0,
+    "keywords_threshold": 0.25,
+    "trailing_silence_s": 0.3,
+    "_说明": "keywords_file 必须是 UTF-8 无 BOM；拼音串里的空格不能省，@ 后面是显示名"
+  },
+
+  "vad": {
+    "model": "../models/silero_vad.onnx",
+    "num_threads": 1,
+    "min_silence_duration": 0.55,
+    "min_speech_duration": 0.25,
+    "buffer_seconds": 60
+  },
+
+  "asr": {
+    "model_dir": "../models/fw-small",
+    "language": "zh",
+    "compute_type": "int8",
+    "cpu_threads": 4,
+    "beam_size": 1,
+    "max_chars": 500,
+    "_说明": "fw-small 是 Systran/faster-whisper-small 的本地目录（model.bin + config.json + tokenizer.json + vocabulary.txt）"
+  },
+
+  "session": {
+    "listen_timeout_s": 6.0,
+    "max_utterance_s": 20.0,
+    "tail_silence_s": 1.2,
+    "wake_cooldown_s": 0.8,
+    "echo_on_wake": "我在"
+  },
+
+  "bridge": {
+    "endpoint_file": "~/.dsh/plugins-data/coo-aurabot-bridge/endpoint.json",
+    "url_override": null,
+    "token_override": null,
+    "timeout_s": 10,
+    "_说明": "endpoint_file 由 DSH 插件启动时写入（含 port 与 token）。url_override 用于调试直连。"
+  },
+
+  "log": {
+    "file": "../logs/voice-assistant.log",
+    "console": true,
+    "level": "info"
+  }
+}
